@@ -1,56 +1,48 @@
 # Music Transcription and Generation
 
-## 简介
+## 简介 / Introduction
 
-本项目提出了一种从短多轨录音生成音乐的新范式。为克服处理原始音频波形的复杂性和高数据量挑战，我们将音乐特征转换为 MIDI 编码格式，再利用生成模型扩展为更长的多轨音乐作品。
+本项目提出了一种从短多轨录音生成音乐的新范式。为克服处理原始音频波形的复杂性和高数据量挑战，我们将音乐特征转换为 MIDI 编码格式，再利用生成模型扩展为更长的多轨音乐作品。整体流程分为两个阶段：
 
-整体流程分为两个阶段：
 1. **音乐转录**（Audio → MIDI）：使用深度学习模型从频谱图中提取音乐特征，将音频文件转录为 MIDI 文件
 2. **音乐生成**（MIDI → Extended Music）：基于改进的 Sparse Transformer 模型，从 MIDI 输入生成更长的多轨音乐
 
-### 转录模型
+This project proposes a novel paradigm for generating music from short multi-track recordings. To overcome the complexity of processing raw audio waveforms and the high data volume, we transform musical features into a MIDI-encoded format and then use a generation model to produce extended multi-track compositions. The overall pipeline consists of two stages:
+
+1. **Music Transcription** (Audio → MIDI): Extract musical features from spectrograms using deep learning models and transcribe audio into MIDI files
+2. **Music Generation** (MIDI → Extended Music): Generate longer multi-track music from MIDI input using an improved Sparse Transformer model
+
+### 转录模型 / Transcription Models
 
 我们实现并比较了三种转录模型：
+
 - **RNN-CNN**：结合卷积神经网络和循环神经网络的混合架构
 - **T5**：基于 [MT3](https://arxiv.org/abs/2111.03017) 的编码器-解码器 Transformer，将转录任务视为翻译任务（onset F1: 0.9712）
 - **Albert**：基于 Albert 的 token 分类模型（12 层隐藏层，输入长度 512），将转录任务视为逐帧分类任务
 
-### 生成模型
+We implemented and compared three transcription models:
+
+- **RNN-CNN**: A hybrid architecture combining convolutional and recurrent neural networks
+- **T5**: An encoder-decoder Transformer based on [MT3](https://arxiv.org/abs/2111.03017), treating transcription as a translation task (onset F1: 0.9712)
+- **Albert**: An Albert-based token classification model (12 hidden layers, input length 512), treating transcription as a frame-level classification task
+
+### 生成模型 / Generation Model
 
 在生成阶段，我们对 [SymphonyNet](https://arxiv.org/abs/2205.05448) 进行了以下改进：
+
 - 将线性注意力替换为 **Sparse Transformer** 注意力机制，显著提升收敛速度（~5k steps vs ~40k steps）
 - 引入 **Rotary Position Embedding (RoPE)** 替代相对位置编码，更灵活地捕获序列内关系
 - 统一训练和推理阶段的架构，采用标准自回归方式生成，避免训练/推理不一致的问题
 
 实验表明，与 Google Magenta 的 Continue 工具相比，我们的模型在多轨音乐生成的复杂度和质量上表现更优。
 
----
-
-## Introduction
-
-This project proposes a novel paradigm for generating music from short multi-track recordings. To overcome the complexity of processing raw audio waveforms and the high data volume, we transform musical features into a MIDI-encoded format and then use a generation model to produce extended multi-track compositions.
-
-The overall pipeline consists of two stages:
-1. **Music Transcription** (Audio → MIDI): Extract musical features from spectrograms using deep learning models and transcribe audio into MIDI files
-2. **Music Generation** (MIDI → Extended Music): Generate longer multi-track music from MIDI input using an improved Sparse Transformer model
-
-### Transcription Models
-
-We implemented and compared three transcription models:
-- **RNN-CNN**: A hybrid architecture combining convolutional and recurrent neural networks
-- **T5**: An encoder-decoder Transformer based on [MT3](https://arxiv.org/abs/2111.03017), treating transcription as a translation task (onset F1: 0.9712)
-- **Albert**: An Albert-based token classification model (12 hidden layers, input length 512), treating transcription as a frame-level classification task
-
-### Generation Model
-
 For the generation stage, we made the following improvements over [SymphonyNet](https://arxiv.org/abs/2205.05448):
+
 - Replaced linear attention with **Sparse Transformer** attention, significantly improving convergence speed (~5k steps vs ~40k steps)
 - Introduced **Rotary Position Embedding (RoPE)** to replace relative position encoding for more flexible sequence modeling
 - Unified the architecture between training and inference phases, using standard autoregressive generation to avoid train/inference inconsistency
 
 Experiments show that our model outperforms Google Magenta's Continue tool in the complexity and quality of multi-track music generation.
-
----
 
 ## 项目结构 / Project Structure
 
@@ -131,3 +123,9 @@ The inference script loads pretrained weights from `pretrain/` and transcribes a
 - Liu et al., "[Symphony Generation with Permutation Invariant Language Model](https://arxiv.org/abs/2205.05448)" (SymphonyNet), 2022
 - Hawthorne et al., "[Sequence-to-Sequence Piano Transcription with Transformers](https://arxiv.org/abs/2107.09142)", 2021
 - Child et al., "[Generating Long Sequences with Sparse Transformers](https://arxiv.org/abs/1904.10509)", 2019
+
+## 作者 / Author
+
+刘滨瑞，清华大学
+Binrui Liu, Tsinghua University
+📧 lbr21@mails.tsinghua.edu.cn
