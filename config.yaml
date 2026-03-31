@@ -1,0 +1,20 @@
+data:
+  train_path: /home/binrui/Repository/DL/Music_Transcription/data
+  test_path: /home/binrui/Repository/DL/Music_Transcription/data
+  config:
+    midi_folder: MIDI
+    inst_filename: inst_names.json
+    audio_filename: mix.wav
+
+pretrained: ~
+num_training_steps: 500000
+lr: 2e-5
+
+event_length: 256 # 256
+mel_length: 256
+
+gradient_clip_val: 0
+grad_accum: 1
+devices: [0]
+num_workers: 0
+per_device_batch_size: 2
