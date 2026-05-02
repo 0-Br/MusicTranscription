@@ -1,6 +1,8 @@
 # Python 编译产物
 __pycache__/
 *.pyc
+
+# Jupyter
 .ipynb_checkpoints/
 
 # 预训练权重
