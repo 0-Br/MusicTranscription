@@ -67,8 +67,8 @@ MusicTranscription/
 │   ├── vocabularies.py
 │   └── ...
 ├── pretrain/             # 预训练权重（不含在仓库中）/ Pretrained weights (not in repo)
-├── data/                 # 音频数据（不含在仓库中）/ Audio data (not in repo)
-├── results/              # 生成结果（不含在仓库中）/ Generated results (not in repo)
+├── data/                 # 示例音频（训练集见下方 Datasets）/ Demo audio (see Datasets below)
+├── results/              # 示例转录结果 / Demo transcription results
 ├── report/               # 研究报告 / Research report
 │   ├── report.tex
 │   └── Figure/
