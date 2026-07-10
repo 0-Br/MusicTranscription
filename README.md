@@ -1,4 +1,6 @@
-# Music Transcription and Generation
+# MusicTranscription
+
+**Music Transcription and Generation**
 
 ## 简介 / Introduction
 
@@ -124,8 +126,8 @@ The inference script loads pretrained weights from `pretrain/` and transcribes a
 - Hawthorne et al., "[Sequence-to-Sequence Piano Transcription with Transformers](https://arxiv.org/abs/2107.09142)", 2021
 - Child et al., "[Generating Long Sequences with Sparse Transformers](https://arxiv.org/abs/1904.10509)", 2019
 
-## 作者 / Author
+## 声明
 
-刘滨瑞，清华大学
-Binrui Liu, Tsinghua University
-📧 lbr21@mails.tsinghua.edu.cn
+本项目仅供学习交流参考，请勿直接复制用于课程作业提交。
+
+<!-- 课程名待补：本项目为清华大学《XX》课程研究项目 -->
