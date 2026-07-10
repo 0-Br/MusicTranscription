@@ -14,6 +14,10 @@ This project proposes a novel paradigm for generating music from short multi-tra
 1. **Music Transcription** (Audio → MIDI): Extract musical features from spectrograms using deep learning models and transcribe audio into MIDI files
 2. **Music Generation** (MIDI → Extended Music): Generate longer multi-track music from MIDI input using an improved Sparse Transformer model
 
+> **代码范围**：本仓库包含转录阶段（T5、Albert）的完整实现；RNN-CNN 转录模型与生成阶段的代码未并入本仓，相关方法详见 `report/`。
+>
+> **Code scope**: This repository contains only the transcription stage (T5, Albert). The RNN-CNN transcription model and the generation stage are described in `report/`, but their code is not merged into this repo.
+
 ### 转录模型 / Transcription Models
 
 我们实现并比较了三种转录模型：
@@ -128,6 +132,4 @@ The inference script loads pretrained weights from `pretrain/` and transcribes a
 
 ## 声明
 
-本项目仅供学习交流参考，请勿直接复制用于课程作业提交。
-
-<!-- 课程名待补：本项目为清华大学《XX》课程研究项目 -->
+本项目为清华大学龙明盛老师《深度学习》课程研究项目，仅供学习交流参考，请勿直接复制用于课程作业提交。
