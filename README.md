@@ -1,6 +1,6 @@
 # MusicTranscription
 
-**Music Transcription and Generation**
+**音乐转录与生成 | Music Transcription and Generation**
 
 ## 简介 / Introduction
 
