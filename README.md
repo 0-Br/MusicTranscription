@@ -72,7 +72,7 @@ MusicTranscription/
 │   ├── spectrograms.py
 │   ├── vocabularies.py
 │   └── ...
-├── pretrain/             # 预训练权重（不含在仓库中）/ Pretrained weights (not in repo)
+├── pretrained/           # 预训练权重与 config.json（不含在仓库中）/ Pretrained weights and config.json (not in repo)
 ├── data/                 # 示例音频（训练集见下方 Datasets）/ Demo audio (see Datasets below)
 ├── results/              # 示例转录结果 / Demo transcription results
 ├── report/               # 研究报告 / Research report
@@ -89,12 +89,12 @@ The following pretrained weights are not included in the repository due to their
 
 | 文件 / File | 大小 / Size | 说明 / Description | 获取方式 / How to Obtain |
 |---|---|---|---|
-| `pretrain/mt3.pth` | ~176MB | T5-based MT3 转录模型 / T5-based MT3 transcription model | 使用 `train.py` 在 MAESTRO 数据集上训练，或从 [magenta/mt3](https://github.com/magenta/mt3) 获取官方权重并转换为 PyTorch 格式 / Train with `train.py` on [MAESTRO](https://magenta.tensorflow.org/datasets/maestro) dataset, or convert official weights from [magenta/mt3](https://github.com/magenta/mt3) |
-| `pretrain/Albert.ckpt` | ~99MB | Albert 转录模型 / Albert transcription model | 使用 `train.py --model Albert` 在 MAESTRO 数据集上训练 / Train with `train.py --model Albert` on [MAESTRO](https://magenta.tensorflow.org/datasets/maestro) dataset |
+| `pretrained/mt3.pth` | ~176MB | T5-based MT3 转录模型 / T5-based MT3 transcription model | 使用 `train.py` 在 MAESTRO 数据集上训练，或从 [magenta/mt3](https://github.com/magenta/mt3) 获取官方权重并转换为 PyTorch 格式 / Train with `train.py` on [MAESTRO](https://magenta.tensorflow.org/datasets/maestro) dataset, or convert official weights from [magenta/mt3](https://github.com/magenta/mt3) |
+| `pretrained/Albert.ckpt` | ~99MB | Albert 转录模型 / Albert transcription model | 使用 `train.py --model Albert` 在 MAESTRO 数据集上训练 / Train with `train.py --model Albert` on [MAESTRO](https://magenta.tensorflow.org/datasets/maestro) dataset |
 
-将权重文件放入 `pretrain/` 目录后即可使用。
+将权重文件放入 `pretrained/` 目录后即可使用（`inference.py:170` 读取的是这个目录名）。该目录还必须有一份 `config.json`，`InferenceHandler` 在加载权重前会先读它，缺失则推理无法启动；此文件不在仓库中。
 
-Place the weight files in the `pretrain/` directory before use.
+Place the weight files in the `pretrained/` directory before use (this is the directory name read by `inference.py:170`). That directory must also contain a `config.json`, which `InferenceHandler` opens before loading the weights; it is not included in the repository.
 
 ## 使用方法 / Usage
 
@@ -114,9 +114,13 @@ python train.py --model Albert
 python inference.py
 ```
 
-推理脚本会从 `pretrain/` 加载预训练权重，将音频文件转录为 MIDI 文件。
+推理脚本会从 `pretrained/` 加载预训练权重，将音频文件转录为 MIDI 文件。
 
-The inference script loads pretrained weights from `pretrain/` and transcribes audio files into MIDI files.
+> **存档状态**：`inference.py` 的 `__main__` 块硬编码了输入路径 `test_data/S05.wav`，而该目录在仓库中不存在（示例音频在 `data/` 下），需自行改为实际路径。训练侧同样如此：`train.py` 中从零训练的那一行已被注释，实际执行的是从 `results/007/checkpoints/` 下一个不在仓库中的 checkpoint 续训；`config.yaml` 的数据路径是早期的绝对路径，且 `data/` 只有三段示例音频，缺 `config.yaml` 声明的 MIDI 目录与 `inst_names.json`。作为课程存档保留原样，运行前需自行调整这些路径。
+
+The inference script loads pretrained weights from `pretrained/` and transcribes audio files into MIDI files.
+
+> **Archive note**: the `__main__` block of `inference.py` hard-codes the input path `test_data/S05.wav`, a directory absent from the repository (the demo audio lives under `data/`); adjust it before running. The same applies to training: the from-scratch line in `train.py` is commented out and it instead resumes from a checkpoint under `results/007/checkpoints/` that is not in the repository, while `config.yaml` still points at early absolute paths and `data/` holds only the three demo clips, lacking the MIDI folder and `inst_names.json` it declares. Kept as-is for archival purposes.
 
 ## 数据集 / Datasets
 
